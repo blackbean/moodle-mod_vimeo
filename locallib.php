@@ -139,22 +139,14 @@ function vimeo_insert_video(stdclass $video) {
         // Compiling the required command
         // to persist the supplied object
         // within the database.
-        $values = ['course' => $video->course,
-                   'name' => $video->name,
-                   'video' => $video->video,
-                   'color' => $video->color,
-                   'intro' => $video->intro,
-                   'introformat' => $video->introformat,
-                   'autoplay' => $video->autoplay,
-                   'autoloop' => $video->autoloop,
-                   'popupopen' => $video->popupopen,
-                   'popupwidth' => $video->popupwidth,
-                   'popupheight' => $video->popupheight,
-                   'completionenable' => $video->completionenable,
-                   'completionprogress' => $video->completionprogress,
-                   'visible' => $video->visible,
-                   'timecreated' => $video->timecreated,
-                   'timemodified' => $video->timemodified];
+        $values = ['course' => $video->course, 'name' => $video->name,
+                   'video' => $video->video, 'color' => $video->color,
+                   'intro' => $video->intro, 'introformat' => $video->introformat,
+                   'autoplay' => $video->autoplay, 'autoloop' => $video->autoloop,
+                   'popupopen' => $video->popupopen, 'popupwidth' => $video->popupwidth,
+                   'popupheight' => $video->popupheight, 'completionenable' => $video->completionenable,
+                   'completionprogress' => $video->completionprogress, 'visible' => $video->visible,
+                   'timecreated' => $video->timecreated, 'timemodified' => $video->timemodified];
 
         // Executing the required command
         // to persist the supplied object
@@ -197,23 +189,14 @@ function vimeo_update_video(stdclass $video) {
         // Compiling the required command
         // to persist the supplied object
         // within the database.
-        $values = ['id' => $video->id,
-                   'course' => $video->course,
-                   'name' => $video->name,
-                   'video' => $video->video,
-                   'color' => $video->color,
-                   'intro' => $video->intro,
-                   'introformat' => $video->introformat,
-                   'autoplay' => $video->autoplay,
-                   'autoloop' => $video->autoloop,
-                   'popupopen' => $video->popupopen,
-                   'popupwidth' => $video->popupwidth,
-                   'popupheight' => $video->popupheight,
-                   'completionenable' => $video->completionenable,
-                   'completionprogress' => $video->completionprogress,
-                   'visible' => $video->visible,
-                   'timecreated' => $video->timecreated,
-                   'timemodified' => $video->timemodified];
+        $values = ['id' => $video->id, 'course' => $video->course,
+                   'name' => $video->name, 'video' => $video->video,
+                   'color' => $video->color, 'intro' => $video->intro,
+                   'introformat' => $video->introformat, 'autoplay' => $video->autoplay,
+                   'autoloop' => $video->autoloop, 'popupopen' => $video->popupopen,
+                   'popupwidth' => $video->popupwidth, 'popupheight' => $video->popupheight,
+                   'completionenable' => $video->completionenable, 'completionprogress' => $video->completionprogress,
+                   'visible' => $video->visible, 'timecreated' => $video->timecreated, 'timemodified' => $video->timemodified];
 
         // Executing the required command
         // to persist the supplied object
