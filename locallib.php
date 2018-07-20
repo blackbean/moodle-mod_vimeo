@@ -29,25 +29,25 @@ defined('MOODLE_INTERNAL') || die();
  * @return object|null
  */
 function vimeo_fetch_video($videoid) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $videoid = max(0, (integer)$videoid);
     $result = null;
 
-     // Verifying if the supplied identifier is valid
-     // (greater than zero) and, if false, there is no
-     // need to even touch the database and returning
-     // a null value as this function result.
+    // Verifying if the supplied identifier is valid
+    // (greater than zero) and, if false, there is no
+    // need to even touch the database and returning
+    // a null value as this function result.
     if ($videoid < 1) {
         return($result);
     }
 
-     // Compiling the required command to
-     // load this object from the database.
+    // Compiling the required command to
+    // load this object from the database.
     $sql = "SELECT id,".
                 "course,".
                 "name,".
@@ -68,12 +68,12 @@ function vimeo_fetch_video($videoid) {
             "FROM {vimeo} ".
             "WHERE id=?";
 
-     // Executing the required command to
-     // load this object from the database.
+    // Executing the required command to
+    // load this object from the database.
     if ($record = $DB->get_record_sql($sql, [$videoid])) {
-         // Normalizing the loaded object
-         // attributes and making sure they
-         // are within the required parameters.
+        // Normalizing the loaded object
+        // attributes and making sure they
+        // are within the required parameters.
         $result = new stdclass();
         $result->id = max(0, (integer)$record->id);
         $result->course = max(0, (integer)$record->course);
@@ -94,9 +94,9 @@ function vimeo_fetch_video($videoid) {
         $result->timemodified = max(0, (integer)$record->timemodified);
     }
 
-     // Returning the object loaded
-     // from the database, if any,
-     // as this function result.
+    // Returning the object loaded
+    // from the database, if any,
+    // as this function result.
     return($result);
 }
 
@@ -107,8 +107,8 @@ function vimeo_fetch_video($videoid) {
  * @return boolean
  */
 function vimeo_save_video(stdclass $video) {
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $video->id = max(0, (integer)$video->id);
 
     if ($video->id > 0) {
@@ -125,20 +125,20 @@ function vimeo_save_video(stdclass $video) {
  * @return boolean
  */
 function vimeo_insert_video(stdclass $video) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Before trying to persist the supplied video within
-     // the database, validating its attributes and making
-     // sure they are within the required parameters.
+    // Before trying to persist the supplied video within
+    // the database, validating its attributes and making
+    // sure they are within the required parameters.
     if (vimeo_validate_video($video)) {
         $video->timecreated = time();
         $video->timemodified = 0;
 
-         // Compiling the required command
-         // to persist the supplied object
-         // within the database.
+        // Compiling the required command
+        // to persist the supplied object
+        // within the database.
         $values = ['course' => $video->course,
                    'name' => $video->name,
                    'video' => $video->video,
@@ -156,24 +156,24 @@ function vimeo_insert_video(stdclass $video) {
                    'timecreated' => $video->timecreated,
                    'timemodified' => $video->timemodified];
 
-         // Executing the required command
-         // to persist the supplied object
-         // within the database.
+        // Executing the required command
+        // to persist the supplied object
+        // within the database.
         if ($result = $DB->insert_record_raw('vimeo', $values)) {
-             // Storing the generated id
-             // within the supplied object.
+            // Storing the generated id
+            // within the supplied object.
             $video->id = (integer)$result;
 
-             // Because we were able to execute this operation
-             // completely and successfully, returning a true
-             // boolean value as this function result.
+            // Because we were able to execute this operation
+            // completely and successfully, returning a true
+            // boolean value as this function result.
             return(true);
         }
     }
 
-     // Because we were unable to execute this operation
-     // successfully, returning a false boolean value as
-     // this function result.
+    // Because we were unable to execute this operation
+    // successfully, returning a false boolean value as
+    // this function result.
     return(false);
 }
 
@@ -184,19 +184,19 @@ function vimeo_insert_video(stdclass $video) {
  * @return boolean
  */
 function vimeo_update_video(stdclass $video) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Before trying to persist the supplied video within
-     // the database, validating its attributes and making
-     // sure they are within the required parameters.
+    // Before trying to persist the supplied video within
+    // the database, validating its attributes and making
+    // sure they are within the required parameters.
     if (vimeo_validate_video($video)) {
         $video->timemodified = time();
 
-         // Compiling the required command
-         // to persist the supplied object
-         // within the database.
+        // Compiling the required command
+        // to persist the supplied object
+        // within the database.
         $values = ['id' => $video->id,
                    'course' => $video->course,
                    'name' => $video->name,
@@ -215,20 +215,20 @@ function vimeo_update_video(stdclass $video) {
                    'timecreated' => $video->timecreated,
                    'timemodified' => $video->timemodified];
 
-         // Executing the required command
-         // to persist the supplied object
-         // within the database.
+        // Executing the required command
+        // to persist the supplied object
+        // within the database.
         if ($DB->update_record_raw('vimeo', $values)) {
-             // Because we were able to execute this operation
-             // completely and successfully, returning a true
-             // boolean value as this function result.
+            // Because we were able to execute this operation
+            // completely and successfully, returning a true
+            // boolean value as this function result.
             return(true);
         }
     }
 
-     // Because we were unable to execute this operation
-     // successfully, returning a false boolean value as
-     // this function result.
+    // Because we were unable to execute this operation
+    // successfully, returning a false boolean value as
+    // this function result.
     return(false);
 }
 
@@ -238,9 +238,9 @@ function vimeo_update_video(stdclass $video) {
  * @return boolean
  */
 function vimeo_validate_video(stdclass $video) {
-     // Normalizing the loaded object
-     // attributes and making sure they
-     // are within the required parameters.
+    // Normalizing the loaded object
+    // attributes and making sure they
+    // are within the required parameters.
     $video->id = isset($video->id) ? max(0, (integer)$video->id) : 0;
     $video->course = isset($video->course) ? max(0, (integer)$video->course) : 0;
     $video->name = isset($video->name) ? trim((string)$video->name) : '';
@@ -284,8 +284,8 @@ function vimeo_validate_video(stdclass $video) {
         $video->errors['video'] = get_string('message_invalid_video', 'mod_vimeo');
     }
 
-     // A successful validation is
-     // a validation without errors.
+    // A successful validation is
+    // a validation without errors.
     return(empty($video->errors));
 }
 
@@ -295,12 +295,12 @@ function vimeo_validate_video(stdclass $video) {
  * @return string
  */
 function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $popup = false) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $COURSE, $USER;
 
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $courseid = isset($COURSE->id) ? max(0, (integer)$COURSE->id) : 0;
     $userid = isset($USER->id) ? max(0, (integer)$USER->id) : 0;
 
@@ -388,39 +388,39 @@ function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $p
  * @return boolean
  */
 function vimeo_delete_video($videoid) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $videoid = max(0, (integer)$videoid);
 
-     // Verifying if the supplied identifier is valid
-     // (greater than zero) and, if false, there is no
-     // need to even touch the database and returning
-     // a false boolean value as this function result.
+    // Verifying if the supplied identifier is valid
+    // (greater than zero) and, if false, there is no
+    // need to even touch the database and returning
+    // a false boolean value as this function result.
     if ($videoid < 1) {
         return(false);
     }
 
-     // Removing the requested object from the
-     // database and returning a boolean value
-     // as this function result.
+    // Removing the requested object from the
+    // database and returning a boolean value
+    // as this function result.
     if ($DB->delete_records('vimeo', ['id' => $videoid])) {
-         // Removing all the related
-         // objects from the database.
+        // Removing all the related
+        // objects from the database.
         $DB->delete_records('vimeo_progress', ['video' => $videoid]);
 
-         // Because we were able to execute this operation
-         // completely and successfully, returning a true
-         // boolean value as this function result.
+        // Because we were able to execute this operation
+        // completely and successfully, returning a true
+        // boolean value as this function result.
         return(true);
     }
 
-     // Because we were unable to execute this operation
-     // successfully, returning a false boolean value as
-     // this function result.
+    // Because we were unable to execute this operation
+    // successfully, returning a false boolean value as
+    // this function result.
     return(false);
 }
 
@@ -431,39 +431,39 @@ function vimeo_delete_video($videoid) {
  * @return integer
  */
 function vimeo_count_videos($courseid) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $courseid = max(0, (integer)$courseid);
 
-     // Verifying if the supplied identifier is valid
-     // (greater than zero) and, if false, there is no
-     // need to even touch the database and returning
-     // a zero integer value as this function result.
+    // Verifying if the supplied identifier is valid
+    // (greater than zero) and, if false, there is no
+    // need to even touch the database and returning
+    // a zero integer value as this function result.
     if ($courseid < 1) {
         return(0);
     }
 
-     // Compiling the required command
-     // to count the requested objects
-     // from the database.
+    // Compiling the required command
+    // to count the requested objects
+    // from the database.
     $sql = "SELECT COUNT(id) ".
             "FROM {vimeo} ".
             "WHERE course=?";
 
-     // Executing the required command
-     // to count the requested objects
-     // from the database.
+    // Executing the required command
+    // to count the requested objects
+    // from the database.
     if ($result = $DB->get_field_sql($sql, [$courseid])) {
         return((integer)$result);
     }
 
-     // Because we were unable to execute this
-     // operation successfully, returning a zero
-     // integer value as this function result.
+    // Because we were unable to execute this
+    // operation successfully, returning a zero
+    // integer value as this function result.
     return(0);
 }
 
@@ -474,26 +474,26 @@ function vimeo_count_videos($courseid) {
  * @return array
  */
 function vimeo_fetch_videos($courseid) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $courseid = max(0, (integer)$courseid);
     $results = [];
 
-     // Verifying if the supplied identifier is valid
-     // (greater than zero) and, if false, there is no
-     // need to even touch the database and returning
-     // an empty array value as this function result.
+    // Verifying if the supplied identifier is valid
+    // (greater than zero) and, if false, there is no
+    // need to even touch the database and returning
+    // an empty array value as this function result.
     if ($courseid < 1) {
         return([]);
     }
 
-     // Compiling the required command
-     // to fetch the requested objects
-     // from the database.
+    // Compiling the required command
+    // to fetch the requested objects
+    // from the database.
     $sql = "SELECT id,".
                 "course,".
                 "name,".
@@ -515,13 +515,13 @@ function vimeo_fetch_videos($courseid) {
             "WHERE course=? ".
             "ORDER BY id ASC";
 
-     // Executing the required command
-     // to fetch the requested objects
-     // from the database.
+    // Executing the required command
+    // to fetch the requested objects
+    // from the database.
     if ($records = $DB->get_records_sql($sql, [$courseid])) {
-         // Normalizing the loaded objects
-         // attributes and making sure they
-         // are within the required ranges.
+        // Normalizing the loaded objects
+        // attributes and making sure they
+        // are within the required ranges.
         foreach ($records as $record) {
             $result = new stdclass();
             $result->id = max(0, (integer)$record->id);
@@ -545,9 +545,9 @@ function vimeo_fetch_videos($courseid) {
         }
     }
 
-     // Returning the an array
-     // with all loaded objects
-     // as this function result.
+    // Returning the an array
+    // with all loaded objects
+    // as this function result.
     return($results);
 }
 
@@ -559,26 +559,26 @@ function vimeo_fetch_videos($courseid) {
  * @return object|null
  */
 function vimeo_fetch_progress($userid, $videoid) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $userid = max(0, (integer)$userid);
     $videoid = max(0, (integer)$videoid);
     $result = null;
 
-     // Verifying if the supplied identifiers are valid
-     // (greater than zero) and, if not, there is no need
-     // to even touch the database and returning a null
-     // value as this function result.
+    // Verifying if the supplied identifiers are valid
+    // (greater than zero) and, if not, there is no need
+    // to even touch the database and returning a null
+    // value as this function result.
     if ($userid < 1 or $videoid < 1) {
         return($result);
     }
 
-     // Compiling the required command to
-     // load this object from the database.
+    // Compiling the required command to
+    // load this object from the database.
     $sql = "SELECT id,".
                 "user,".
                 "video,".
@@ -590,12 +590,12 @@ function vimeo_fetch_progress($userid, $videoid) {
             "AND video=? ".
             "LIMIT 1";
 
-     // Executing the required command to
-     // load this object from the database.
+    // Executing the required command to
+    // load this object from the database.
     if ($record = $DB->get_record_sql($sql, [$userid, $videoid])) {
-         // Normalizing the loaded object
-         // attributes and making sure they
-         // are within the required parameters.
+        // Normalizing the loaded object
+        // attributes and making sure they
+        // are within the required parameters.
         $result = new stdclass();
         $result->id = max(0, (integer)$record->id);
         $result->user = max(0, (integer)$record->user);
@@ -605,9 +605,9 @@ function vimeo_fetch_progress($userid, $videoid) {
         $result->timemodified = max(0, (integer)$record->timemodified);
     }
 
-     // Returning the object loaded
-     // from the database, if any,
-     // as this function result.
+    // Returning the object loaded
+    // from the database, if any,
+    // as this function result.
     return($result);
 }
 
@@ -620,65 +620,65 @@ function vimeo_fetch_progress($userid, $videoid) {
  * @return boolean
  */
 function vimeo_save_progress($userid, $videoid, $value) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $userid = max(0, (integer)$userid);
     $videoid = max(0, (integer)$videoid);
     $value = max(0, (integer)$value);
     $created = time();
 
-     // Verifying if the supplied identifiers are valid
-     // (greater than zero) and, if not, there is no need
-     // to even touch the database and returning a false
-     // boolean value as this function result.
+    // Verifying if the supplied identifiers are valid
+    // (greater than zero) and, if not, there is no need
+    // to even touch the database and returning a false
+    // boolean value as this function result.
     if ($userid < 1 or $videoid < 1) {
         return(false);
     }
 
-     // Compiling the required command
-     // to persist the supplied object
-     // progress within the database.
+    // Compiling the required command
+    // to persist the supplied object
+    // progress within the database.
     if ($object = vimeo_fetch_progress($userid, $videoid)) {
-         // Verifying if the supplied progress value is higher than
-         // what we have stored within the database, if true, store
-         // it, otherwise return false because it would make no sense
-         // to unsee the video, and it would mess up completion rules
-         // that depends on it.
+        // Verifying if the supplied progress value is higher than
+        // what we have stored within the database, if true, store
+        // it, otherwise return false because it would make no sense
+        // to unsee the video, and it would mess up completion rules
+        // that depends on it.
         if ($value > $object->progress) {
-             // Compiling the required command
-             // to update the supplied object
-             // within the database.
+            // Compiling the required command
+            // to update the supplied object
+            // within the database.
             $values = ['id' => $object->id,
                        'progress' => $value,
                        'timemodified' => $created];
 
-             // Executing the required command
-             // to update the supplied object
-             // within the database.
+            // Executing the required command
+            // to update the supplied object
+            // within the database.
             return((boolean)$DB->update_record_raw('vimeo_progress', $values));
         }
     } else {
-         // Compiling the required command
-         // to update the supplied object
-         // within the database.
+        // Compiling the required command
+        // to update the supplied object
+        // within the database.
         $values = ['user' => $userid,
                    'video' => $videoid,
                    'progress' => $value,
                    'timecreated' => $created];
 
-         // Executing the required command
-         // to update the supplied object
-         // within the database.
+        // Executing the required command
+        // to update the supplied object
+        // within the database.
         return((boolean)$DB->insert_record_raw('vimeo_progress', $values));
     }
 
-     // Because we were unable to execute this operation
-     // successfully, returning a false boolean value as
-     // this function result.
+    // Because we were unable to execute this operation
+    // successfully, returning a false boolean value as
+    // this function result.
     return(false);
 }
 
@@ -690,25 +690,25 @@ function vimeo_save_progress($userid, $videoid, $value) {
  * @return boolean
  */
 function vimeo_delete_progress($userid, $videoid) {
-     // Importing all the required global
-     // objects into this function scope.
+    // Importing all the required global
+    // objects into this function scope.
     global $DB;
 
-     // Normalizing the supplied arguments and making
-     // sure they are within the required parameters.
+    // Normalizing the supplied arguments and making
+    // sure they are within the required parameters.
     $userid = max(0, (integer)$userid);
     $videoid = max(0, (integer)$videoid);
 
-     // Verifying if the supplied identifiers are valid
-     // (greater than zero) and, if not, there is no need
-     // to even touch the database and returning a false
-     // boolean value as this function result.
+    // Verifying if the supplied identifiers are valid
+    // (greater than zero) and, if not, there is no need
+    // to even touch the database and returning a false
+    // boolean value as this function result.
     if ($userid < 1 or $videoid < 1) {
         return(false);
     }
 
-     // Removing the requested object from the
-     // database and returning a boolean value
-     // as this function result.
+    // Removing the requested object from the
+    // database and returning a boolean value
+    // as this function result.
     return((boolean)$DB->delete_records('vimeo_progress', ['user' => $userid, 'video' => $videoid]));
 }

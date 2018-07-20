@@ -50,9 +50,9 @@ function vimeo_supports($feature) {
  * @return cached_cm_info
  */
 function vimeo_get_coursemodule_info(stdclass $coursemodule) {
-     // Loading all libraries, classes
-     // and functions required by this
-     // function execution.
+    // Loading all libraries, classes
+    // and functions required by this
+    // function execution.
     require_once(__DIR__.'/locallib.php');
 
     if ($video = vimeo_fetch_video($coursemodule->instance)) {
@@ -80,9 +80,9 @@ function vimeo_get_coursemodule_info(stdclass $coursemodule) {
         return($info);
     }
 
-     // Because we were unable to execute
-     // this operation successfully, returning
-     // a null value as this function result.
+    // Because we were unable to execute
+    // this operation successfully, returning
+    // a null value as this function result.
     return(null);
 }
 
@@ -100,27 +100,27 @@ function vimeo_get_coursemodule_info(stdclass $coursemodule) {
  * @return integer
  */
 function vimeo_add_instance(stdclass $video, mod_vimeo_mod_form $form = null) {
-     // Loading all libraries, classes
-     // and functions required by this
-     // function execution.
+    // Loading all libraries, classes
+    // and functions required by this
+    // function execution.
     require_once(__DIR__.'/locallib.php');
 
-     // Trying to insert the supplied object
-     // into the database and, if successful,
-     // returning the generated identifier.
+    // Trying to insert the supplied object
+    // into the database and, if successful,
+    // returning the generated identifier.
     if (vimeo_insert_video($video)) {
-         // Rebuilding this course cache.
+        // Rebuilding this course cache.
         rebuild_course_cache($video->course, true);
 
-         // Returning the generated
-         // object identifier value
-         // as this function result.
+        // Returning the generated
+        // object identifier value
+        // as this function result.
         return($video->id);
     }
 
-     // Because we were unable to execute this
-     // operation successfully, returning a zero
-     // integer value as this function result.
+    // Because we were unable to execute this
+    // operation successfully, returning a zero
+    // integer value as this function result.
     return(0);
 }
 
@@ -137,26 +137,26 @@ function vimeo_add_instance(stdclass $video, mod_vimeo_mod_form $form = null) {
  * @return boolean
  */
 function vimeo_update_instance(stdclass $video, mod_vimeo_mod_form $form = null) {
-     // Loading all libraries, classes
-     // and functions required by this
-     // function execution.
+    // Loading all libraries, classes
+    // and functions required by this
+    // function execution.
     require_once(__DIR__.'/locallib.php');
 
-     // Trying to update the supplied object
-     // into the database and, if successful,
-     // returning a true boolean as result.
+    // Trying to update the supplied object
+    // into the database and, if successful,
+    // returning a true boolean as result.
     if (vimeo_update_video($video)) {
-         // Rebuilding this course cache.
+        // Rebuilding this course cache.
         rebuild_course_cache($video->course, true);
 
-         // Returning a true boolean
-         // as this function result.
+        // Returning a true boolean
+        // as this function result.
         return(true);
     }
 
-     // Because we were unable to execute this
-     // operation successfully, returning a false
-     // boolean value as this function result.
+    // Because we were unable to execute this
+    // operation successfully, returning a false
+    // boolean value as this function result.
     return(false);
 }
 
@@ -172,31 +172,31 @@ function vimeo_update_instance(stdclass $video, mod_vimeo_mod_form $form = null)
  * @return boolean
  */
 function vimeo_delete_instance($id) {
-     // Loading all libraries, classes
-     // and functions required by this
-     // function execution.
+    // Loading all libraries, classes
+    // and functions required by this
+    // function execution.
     require_once(__DIR__.'/locallib.php');
 
-     // Trying to load the requested object
-     // from the database and, if successful,
-     // trying to delete it from the database.
+    // Trying to load the requested object
+    // from the database and, if successful,
+    // trying to delete it from the database.
     if ($video = vimeo_fetch_video($id)) {
-         // Trying to delete the requested object
-         // from the database and, if successful,
-         // returning a true boolean as result.
+        // Trying to delete the requested object
+        // from the database and, if successful,
+        // returning a true boolean as result.
         if (vimeo_delete_video($video)) {
-             // Rebuilding this course cache.
+            // Rebuilding this course cache.
             rebuild_course_cache($video->course, true);
 
-             // Returning a true boolean
-             // as this function result.
+            // Returning a true boolean
+            // as this function result.
             return(true);
         }
     }
 
-     // Because we were unable to execute this
-     // operation successfully, returning a false
-     // boolean value as this function result.
+    // Because we were unable to execute this
+    // operation successfully, returning a false
+    // boolean value as this function result.
     return(false);
 }
 
@@ -212,10 +212,14 @@ function vimeo_delete_instance($id) {
  * @return boolean
  */
 function vimeo_refresh_events($courseid) {
-     // Because we don't have any related
-     // events returning a true boolean
-     // value as this function result.
-    return(true);
+    // Because we don't have any related
+    // events returning a true boolean
+    // value as this function result.
+    if ($courseid > 0) {
+       return(true);
+    } else {
+       return(true);
+    }
 }
 
 /**
@@ -230,17 +234,17 @@ function vimeo_refresh_events($courseid) {
  * @return boolean
  */
 function vimeo_get_completion_state($course, $module, $userid, $type) {
-     // Loading all libraries, classes
-     // and functions required by this
-     // function execution.
+    // Loading all libraries, classes
+    // and functions required by this
+    // function execution.
     require_once(__DIR__.'/locallib.php');
 
-     // Loading the required video to
-     // check for the completion rule.
+    // Loading the required video to
+    // check for the completion rule.
     if ($video = vimeo_fetch_video($module->instance)) {
-         // If the completion rule is enabled, loading
-         // this user's watch progress to compare the
-         // completion threshold with the user's.
+        // If the completion rule is enabled, loading
+        // this user's watch progress to compare the
+        // completion threshold with the user's.
         if ($video->completionenable == true) {
             if ($progress = vimeo_fetch_progress($userid, $video->id)) {
                 if ($progress->progress >= $video->completionprogress) {
@@ -277,8 +281,9 @@ function vimeo_user_outline($course, $user, $mod, $video) {
 }
 
 /**
- * Prints a detailed representation of what a user has done with
- * a given particular instance of this module, for user activity reports.
+ * Prints a detailed representation of what a user has 
+ * done with a given particular instance of this module,
+ * for user activity reports.
  *
  * It is supposed to echo directly without returning a value.
  *
@@ -292,8 +297,9 @@ function vimeo_user_complete($course, $user, $mod, $video) {
 }
 
 /**
- * Given a course and a time, this module should find recent activity
- * that has occurred in Vimeo activities and print it out.
+ * Given a course and a time, this module should find
+ * recent activity that has occurred in Vimeo activities
+ * and print it out.
  *
  * @param stdclass $course The course record
  * @param boolean $viewfullnames Should we disautoplay full names
@@ -347,9 +353,9 @@ function vimeo_print_recent_mod_activity($activity, $courseid, $detail, $modname
  * @return array
  */
 function vimeo_get_extra_capabilities() {
-     // Because we don't use any additional
-     // capabilities, returning an empty
-     // array as this function result.
+    // Because we don't use any additional
+    // capabilities, returning an empty
+    // array as this function result.
     return([]);
 }
 
@@ -362,9 +368,9 @@ function vimeo_get_extra_capabilities() {
  * @return boolean
  */
 function vimeo_cron() {
-     // Because we don't have any related
-     // tasks, returning a false boolean
-     // value as this function result.
+    // Because we don't have any related
+    // tasks, returning a false boolean
+    // value as this function result.
     return(false);
 }
 
@@ -379,9 +385,9 @@ function vimeo_cron() {
  * @return boolean
  */
 function vimeo_scale_used($videoid, $scaleid) {
-     // Because we don't have any related
-     // scales, returning a false boolean
-     // value as this function result.
+    // Because we don't have any related
+    // scales, returning a false boolean
+    // value as this function result.
     return(false);
 }
 
@@ -394,9 +400,9 @@ function vimeo_scale_used($videoid, $scaleid) {
  * @return boolean
  */
 function vimeo_scale_used_anywhere($scaleid) {
-     // Because we don't have any related
-     // scales, returning a false boolean
-     // value as this function result.
+    // Because we don't have any related
+    // scales, returning a false boolean
+    // value as this function result.
     return(false);
 }
 
@@ -408,9 +414,9 @@ function vimeo_scale_used_anywhere($scaleid) {
  * @param integer $userid
  */
 function vimeo_update_grades(stdclass $video, $userid = 0) {
-     // Because we don't have any related
-     // grades, returning a false boolean
-     // value as this function result.
+    // Because we don't have any related
+    // grades, returning a false boolean
+    // value as this function result.
     return(false);
 }
 
@@ -424,9 +430,9 @@ function vimeo_update_grades(stdclass $video, $userid = 0) {
  * @return boolean
  */
 function vimeo_grade_item_update(stdclass $video, $reset = false) {
-     // Because we don't have any related
-     // grades, returning a false boolean
-     // value as this function result.
+    // Because we don't have any related
+    // grades, returning a false boolean
+    // value as this function result.
     return(false);
 }
 
@@ -438,8 +444,8 @@ function vimeo_grade_item_update(stdclass $video, $reset = false) {
  * @return boolean
  */
 function vimeo_grade_item_delete(stdclass $video) {
-     // Because we don't have any related
-     // grades, returning a false boolean
-     // value as this function result.
+    // Because we don't have any related
+    // grades, returning a false boolean
+    // value as this function result.
     return(false);
 }
