@@ -21,55 +21,48 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  */
 
-/**
- * Loading all libraries, classes
- * and functions required by this
- * class execution.
- */
+// Loading all libraries, classes
+// and functions required by this
+// class execution.
 require_once(__DIR__.'/../../config.php');
 require_once(__DIR__.'/lib.php');
 require_once(__DIR__.'/locallib.php');
 
-/**
- * Capturing the supplied identifier
- * to load this Vimeo video instance.
- */
+// Capturing the supplied identifier
+// to load this Vimeo video instance.
 $id = required_param('id', PARAM_INT);
 
-/**
- * Trying to load from the database
- * the requested Vimeo video using
- * the supplied course module id.
- */
+// Trying to load from the database
+// the requested Vimeo video using
+// the supplied course module id.
 $module = get_coursemodule_from_id('vimeo', $id, 0, false, MUST_EXIST);
 $context = context_module::instance($module->id);
 $course = $DB->get_record('course', ['id' => $module->course], '*', MUST_EXIST);
 $video = vimeo_fetch_video($module->instance);
 
-/**
- * Because we were unable to load the
- * requested Vimeo video, displaying
- * an error message about this.
- */
+// Because we were unable to load the
+// requested Vimeo video, displaying
+// an error message about this.
 if (empty($video)) {
     error('The requested Vimeo video was not found.');
 }
 
-/**
- * This user needs to be authenticated
- * before viewing this Vimeo video.
- */
+// This user needs to be authenticated
+// before viewing this Vimeo video.
 require_login($course, true, $module);
 
-/**
- * This user needs to be authorized
- * before viewing this Vimeo video.
- */
+// This user needs to be authorized
+// before viewing this Vimeo video.
 require_capability('mod/vimeo:view', $context);
 
+// Marking this Vimeo video as viewed so
+// any other task that depends on it, works.
 $completion = new completion_info($course);
 $completion->set_module_viewed($module);
 
+// Deciding if we need to render the Moodle
+// interface (with header, footer, menus,
+// blocks, etc) or the full screen one. 
 if ($video->popupopen == false) {
 
     $PAGE->set_url('/mod/vimeo/view.php', ['id' => $video->id]);

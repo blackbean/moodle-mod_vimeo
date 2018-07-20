@@ -56,25 +56,25 @@ function vimeo_fetch_video($videoid) {
      * Compiling the required command to
      * load this object from the database.
      */
-    $sql = "SELECT tb1.id,".
-                "tb1.course,".
-                "tb1.name,".
-                "tb1.video,".
-                "tb1.color,".
-                "tb1.intro,".
-                "tb1.introformat,".
-                "tb1.autoplay,".
-                "tb1.autoloop,".
-                "tb1.popupopen,".
-                "tb1.popupwidth,".
-                "tb1.popupheight,".
-                "tb1.completionenable,".
-                "tb1.completionprogress,".
-                "tb1.visible,".
-                "tb1.timecreated,".
-                "tb1.timemodified ".
-            "FROM {vimeo} AS tb1 ".
-            "WHERE tb1.id=?";
+    $sql = "SELECT id,".
+                "course,".
+                "name,".
+                "video,".
+                "color,".
+                "intro,".
+                "introformat,".
+                "autoplay,".
+                "autoloop,".
+                "popupopen,".
+                "popupwidth,".
+                "popupheight,".
+                "completionenable,".
+                "completionprogress,".
+                "visible,".
+                "timecreated,".
+                "timemodified ".
+            "FROM {vimeo} ".
+            "WHERE id=?";
 
     /**
      * Executing the required command to
@@ -399,7 +399,8 @@ function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $p
     $output .= ' } else {'."\n";
     $output .= '  request = new ActiveXObject("Microsoft.XMLHTTP");'."\n";
     $output .= ' }'."\n";
-    $output .= ' request.open("GET","/mod/vimeo/ping.php?courseid='.$courseid.'&videoid='.$video->id.'&userid='.$userid.'&value="+vimeo_'.$video->id.'_partial, true);'."\n";
+    $output .= ' request.open("GET","/mod/vimeo/ping.php?courseid='.$courseid;
+    $output .= '&videoid='.$video->id.'&userid='.$userid.'&value="+vimeo_'.$video->id.'_partial, true);'."\n";
     $output .= ' request.send();'."\n";
     $output .= '}'."\n";
     $output .= '});'."\n";
@@ -498,17 +499,17 @@ function vimeo_count_videos($courseid) {
      * to count the requested objects
      * from the database.
      */
-    $sql = "SELECT COUNT(tb1.id) AS total ".
-            "FROM {vimeo} AS tb1 ".
-            "WHERE tb1.course=?";
+    $sql = "SELECT COUNT(id) ".
+            "FROM {vimeo} ".
+            "WHERE course=?";
 
     /**
      * Executing the required command
      * to count the requested objects
      * from the database.
      */
-    if ($result = $DB->get_record_sql($sql, [$courseid])) {
-        return((integer)$result->total);
+    if ($result = $DB->get_field_sql($sql, [$courseid])) {
+        return((integer)$result);
     }
 
     /**
@@ -554,25 +555,26 @@ function vimeo_fetch_videos($courseid) {
      * to fetch the requested objects
      * from the database.
      */
-    $sql = "SELECT tb1.id,".
-                "tb1.course,".
-                "tb1.name,".
-                "tb1.video,".
-                "tb1.color,".
-                "tb1.intro,".
-                "tb1.introformat,".
-                "tb1.autoplay,".
-                "tb1.autoloop,".
-                "tb1.popupopen,".
-                "tb1.popupwidth,".
-                "tb1.popupheight,".
-                "tb1.completionenable,".
-                "tb1.completionprogress,".
-                "tb1.visible,".
-                "tb1.timecreated,".
-                "tb1.timemodified ".
-            "FROM {vimeo} AS tb1 ".
-            "WHERE tb1.course=?";
+    $sql = "SELECT id,".
+                "course,".
+                "name,".
+                "video,".
+                "color,".
+                "intro,".
+                "introformat,".
+                "autoplay,".
+                "autoloop,".
+                "popupopen,".
+                "popupwidth,".
+                "popupheight,".
+                "completionenable,".
+                "completionprogress,".
+                "visible,".
+                "timecreated,".
+                "timemodified ".
+            "FROM {vimeo} ".
+            "WHERE course=? ".
+            "ORDER BY id ASC";
 
     /**
      * Executing the required command
@@ -652,15 +654,15 @@ function vimeo_fetch_progress($userid, $videoid) {
      * Compiling the required command to
      * load this object from the database.
      */
-    $sql = "SELECT tb1.id,".
-                "tb1.user,".
-                "tb1.video,".
-                "tb1.progress,".
-                "tb1.timecreated,".
-                "tb1.timemodified ".
-            "FROM {vimeo_progress} AS tb1 ".
-            "WHERE tb1.user=? ".
-            "AND tb1.video=? ".
+    $sql = "SELECT id,".
+                "user,".
+                "video,".
+                "progress,".
+                "timecreated,".
+                "timemodified ".
+            "FROM {vimeo_progress} ".
+            "WHERE user=? ".
+            "AND video=? ".
             "LIMIT 1";
 
     /**
@@ -734,8 +736,8 @@ function vimeo_save_progress($userid, $videoid, $value) {
          * Verifying if the supplied progress value is higher than
          * what we have stored within the database, if true, store
          * it, otherwise return false because it would make no sense
-         * to unsee the video, and it would messup completion rules
-         * that denpends on it.
+         * to unsee the video, and it would mess up completion rules
+         * that depends on it.
          */
         if ($value > $object->progress) {
             /**

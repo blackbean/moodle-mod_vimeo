@@ -22,36 +22,38 @@
  */
 define('AJAX_SCRIPT', true);
 
-/**
- * Loading all libraries, classes
- * and functions required by this
- * class execution.
- */
+// Loading all libraries, classes
+// and functions required by this
+// class execution.
 require_once(__DIR__.'/../../config.php');
 require_once(__DIR__.'/lib.php');
 require_once(__DIR__.'/locallib.php');
 require_once(__DIR__.'/../../lib/completionlib.php');
 
-/**
- * This user needs to be
- * authenticated before
- * viewing this video.
- */
+// This user needs to be
+// authenticated before
+// viewing this video.
 require_login();
 
-/**
- * Capturing the supplied identifier
- * to load this Vimeo video instance.
- */
+// Capturing the supplied identifier
+// to load this Vimeo video instance.
 $courseid = required_param('courseid', PARAM_INT);
 $videoid = required_param('videoid', PARAM_INT);
 $userid = required_param('userid', PARAM_INT);
 $value = required_param('value', PARAM_INT);
 
+// Trying to fetch the supplied video from the database,
+// if successful, continue processing this ping request,
+// or returning a failure response otherwise.
 if ($video = vimeo_fetch_video($videoid)) {
 
+    // Store within the database this
+    // video watch progress within this
+    // course for this specific user.
     vimeo_save_progress($userid, $videoid, $value);
 
+    // Deciding if the loaded video must be
+    // marked as a completed task, or not.
     if ($video->completionenable == true and
         $video->completionprogress <= $value) {
         $module = get_coursemodule_from_instance('vimeo', $videoid, 0, false, MUST_EXIST);
