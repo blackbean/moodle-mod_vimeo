@@ -218,7 +218,7 @@ function vimeo_update_video(stdclass $video) {
          // Executing the required command
          // to persist the supplied object
          // within the database.
-        if ($result = $DB->update_record_raw('vimeo', $values)) {
+        if ($DB->update_record_raw('vimeo', $values)) {
              // Because we were able to execute this operation
              // completely and successfully, returning a true
              // boolean value as this function result.
@@ -258,18 +258,29 @@ function vimeo_validate_video(stdclass $video) {
     $video->visible = isset($video->visible) ? (boolean)$video->visible : true;
     $video->timecreated = isset($video->timecreated) ? max(0, (integer)$video->timecreated) : 0;
     $video->timemodified = isset($video->timemodified) ? max(0, (integer)$video->timemodified) : 0;
-    if ($video->completionenable == false) $video->completionprogress = 0;
+    if ($video->completionenable == false) {
+        $video->completionprogress = 0;
+    }
     $video->errors = [];
 
+    // Verifying if the supplied course
+    // id is zero, if true, registering
+    // an error message about it.
     if (empty($video->course)) {
         $video->errors['course'] = get_string('message_invalid_course', 'mod_vimeo');
     }
 
+    // Verifying if the supplied name
+    // is empty, if true, registering
+    // an error message about it.
     if (empty($video->name)) {
         $video->errors['name'] = get_string('message_invalid_name', 'mod_vimeo');
     }
 
-    if (empty($video->video)) {
+    // Verifying if the supplied video (ID or
+    // URL) is empty, if true, registering an
+    // error message about it.
+   if (empty($video->video)) {
         $video->errors['video'] = get_string('message_invalid_video', 'mod_vimeo');
     }
 
@@ -293,6 +304,8 @@ function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $p
     $courseid = isset($COURSE->id) ? max(0, (integer)$COURSE->id) : 0;
     $userid = isset($USER->id) ? max(0, (integer)$USER->id) : 0;
 
+    // Instantiating the temporary variable that
+    // will store this video rendering results.
     $output = '';
 
     if ($styles == true) {
