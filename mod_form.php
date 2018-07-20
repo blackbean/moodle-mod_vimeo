@@ -31,23 +31,23 @@ require_once(__DIR__.'/../../course/moodleform_mod.php');
 require_once(__DIR__.'/locallib.php');
 
 /**
- * 
+ *
  */
 class mod_vimeo_mod_form extends moodleform_mod
 {
     /**
-     * 
+     *
      */
     public function definition() {
         /**
-         * 
+         *
          */
         $this->_form->addElement('header', 'general', get_string('general', 'form'));
         $this->_form->addElement('hidden', 'id');
         $this->_form->setType('id', PARAM_INT);
 
         /**
-         * 
+         *
          */
         $this->_form->addElement('text', 'name', get_string('label_name', 'mod_vimeo'), ['size' => '240']);
         $this->_form->setType('name', PARAM_TEXT);
@@ -56,7 +56,7 @@ class mod_vimeo_mod_form extends moodleform_mod
         $this->_form->addHelpButton('name', 'label_name', 'mod_vimeo');
 
         /**
-         * 
+         *
          */
         $this->_form->addElement('text', 'video', get_string('label_video', 'mod_vimeo'), ['size' => '240']);
         $this->_form->setType('video', PARAM_TEXT);
@@ -65,40 +65,40 @@ class mod_vimeo_mod_form extends moodleform_mod
         $this->_form->addHelpButton('video', 'label_video', 'mod_vimeo');
 
         /**
-         * 
+         *
          */
         $this->standard_intro_elements();
 
         /**
-         * 
+         *
          */
         $this->_form->addElement('text', 'color', get_string('label_color', 'mod_vimeo'), 'maxlength="6" size="10"');
         $this->_form->setType('color', PARAM_TEXT);
         $this->_form->addHelpButton('color', 'label_color', 'mod_vimeo');
 
         /**
-         * 
+         *
          */
         $this->_form->addElement('select', 'autoplay', get_string('label_autoplay', 'mod_vimeo'), [0 => get_string('label_no', 'mod_vimeo'), 1 => get_string('label_yes', 'mod_vimeo')]);
         $this->_form->setType('autoplay', PARAM_INT);
         $this->_form->addHelpButton('autoplay', 'label_autoplay', 'mod_vimeo');
 
         /**
-         * 
+         *
          */
         $this->_form->addElement('select', 'autoloop', get_string('label_autoloop', 'mod_vimeo'), [0 => get_string('label_no', 'mod_vimeo'), 1 => get_string('label_yes', 'mod_vimeo')]);
         $this->_form->setType('autoloop', PARAM_INT);
         $this->_form->addHelpButton('autoloop', 'label_autoloop', 'mod_vimeo');
 
         /**
-         * 
+         *
          */
         $this->_form->addElement('select', 'popupopen', get_string('label_popupopen', 'mod_vimeo'), [0 => get_string('label_no', 'mod_vimeo'), 1 => get_string('label_yes', 'mod_vimeo')]);
         $this->_form->setType('popupopen', PARAM_INT);
         $this->_form->addHelpButton('popupopen', 'label_popupopen', 'mod_vimeo');
 
         /**
-         * 
+         *
          */
         $this->_form->addElement('text', 'popupwidth', get_string('label_popupwidth', 'mod_vimeo'), 'maxlength="4" size="10"');
         $this->_form->setType('popupwidth', PARAM_INT);
@@ -107,7 +107,7 @@ class mod_vimeo_mod_form extends moodleform_mod
         $this->_form->setDefault('popupwidth', 640);
 
         /**
-         * 
+         *
          */
         $this->_form->addElement('text', 'popupheight', get_string('label_popupheight', 'mod_vimeo'), 'maxlength="4" size="10"');
         $this->_form->setType('popupheight', PARAM_INT);
@@ -116,7 +116,7 @@ class mod_vimeo_mod_form extends moodleform_mod
         $this->_form->setDefault('popupheight', 360);
 
         /**
-         * 
+         *
          */
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
@@ -125,13 +125,13 @@ class mod_vimeo_mod_form extends moodleform_mod
     /**
      * Add elements for setting
      * the custom completion rules.
-     *  
+     *
      * @category completion
      * @return array List of added element names, or names of wrapping group elements.
      */
     public function add_completion_rules() {
         /**
-         * 
+         *
          */
         $group = [
             $this->_form->createElement('select', 'completionprogress', ' ', [0 => '0%',
@@ -153,7 +153,7 @@ class mod_vimeo_mod_form extends moodleform_mod
         $this->_form->disabledIf('completionprogress', 'completionenable', 'notchecked');
 
         /**
-         * 
+         *
          */
         return ['completionprogress'];
     }
@@ -178,7 +178,7 @@ class mod_vimeo_mod_form extends moodleform_mod
      * This function is responsible for validating
      * the supplied Vimeo video data and returning
      * all the validation errors as an array.
-     * 
+     *
      * @param array $data
      * @param array $files
      * @return array

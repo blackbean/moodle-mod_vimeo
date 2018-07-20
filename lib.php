@@ -40,7 +40,7 @@ function vimeo_supports($feature) {
  * Given a course_module object, this function returns any
  * extra information that may be needed when printing this
  * activity in a course listing.
- * 
+ *
  * @param integer $coursemodule
  * @return cached_cm_info
  */
@@ -54,17 +54,17 @@ function vimeo_get_coursemodule_info(stdclass $coursemodule) {
     require_once(__DIR__.'/locallib.php');
 
     /**
-     * 
+     *
      */
     if ($video = vimeo_fetch_video($coursemodule->instance)) {
         /**
-         * 
+         *
          */
         $info = new cached_cm_info();
         $info->name = $video->name;
 
         /**
-         * 
+         *
          */
         if ($video->popupopen) {
             $video->popupwidth = ($video->popupwidth > 0) ? $video->popupwidth : 640;
@@ -77,27 +77,27 @@ function vimeo_get_coursemodule_info(stdclass $coursemodule) {
         }
 
         /**
-         * 
+         *
          */
         if ($coursemodule->showdescription) {
             $info->content = format_module_intro('vimeo', $video, $coursemodule->id, false);
         }
 
         /**
-         * 
+         *
          */
         if ($coursemodule->completion == COMPLETION_TRACKING_AUTOMATIC) {
             $info->customdata['customcompletionrules']['completionprogress'] = $video->completionprogress;
         }
 
         /**
-         * 
+         *
          */
         return($info);
     }
 
     /**
-     * 
+     *
      */
     return(null);
 }
@@ -299,11 +299,11 @@ function vimeo_get_completion_state($course, $module, $userid, $type) {
          */
         if ($video->completionenable == true) {
             /**
-             * 
+             *
              */
             if ($progress = vimeo_fetch_progress($userid, $video->id)) {
                 /**
-                 * 
+                 *
                  */
                 if ($progress->progress >= $video->completionprogress) {
                     return(true);
@@ -315,7 +315,7 @@ function vimeo_get_completion_state($course, $module, $userid, $type) {
     }
 
     /**
-     * 
+     *
      */
     return($type);
  }

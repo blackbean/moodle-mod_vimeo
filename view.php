@@ -68,25 +68,25 @@ require_login($course, true, $module);
 require_capability('mod/vimeo:view', $context);
 
 /**
- * 
+ *
  */
 $completion = new completion_info($course);
 $completion->set_module_viewed($module);
 
 /**
- * 
+ *
  */
 if ($video->popupopen == false) {
 
     /**
-     * 
+     *
      */
     $PAGE->set_url('/mod/vimeo/view.php', ['id' => $video->id]);
     $PAGE->set_title(format_string($video->name));
     $PAGE->set_heading(format_string($course->fullname));
 
     /**
-     * 
+     *
      */
     echo($OUTPUT->header());
     echo(vimeo_render_video($video, true, true, false));
@@ -95,7 +95,7 @@ if ($video->popupopen == false) {
 } else {
 
     /**
-     * 
+     *
      */
     echo('<!DOCTYPE html>'."\n");
     echo('<html>'."\n");

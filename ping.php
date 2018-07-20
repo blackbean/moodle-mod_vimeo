@@ -49,22 +49,22 @@ $userid = required_param('userid', PARAM_INT);
 $value = required_param('value', PARAM_INT);
 
 /**
- * 
+ *
  */
 if ($video = vimeo_fetch_video($videoid)) {
 
     /**
-     * 
+     *
      */
     vimeo_save_progress($userid, $videoid, $value);
 
     /**
-     * 
+     *
      */
     if ($video->completionenable == true and
         $video->completionprogress <= $value) {
         /**
-         * 
+         *
          */
         $module = get_coursemodule_from_instance('vimeo', $videoid, 0, false, MUST_EXIST);
         $course = $DB->get_record('course', ['id' => $module->course], '*', MUST_EXIST);
@@ -73,7 +73,7 @@ if ($video = vimeo_fetch_video($videoid)) {
     }
 
     /**
-     * 
+     *
      */
     header('HTTP/1.0 200 OK');
     header('Content-Type: application/json; charset=UTF-8');
@@ -88,7 +88,7 @@ if ($video = vimeo_fetch_video($videoid)) {
 }
 
 /**
- * 
+ *
  */
 header('HTTP/1.0 404 Not Found');
 header('Content-Type: application/json; charset=UTF-8');
