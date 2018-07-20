@@ -62,7 +62,7 @@ $completion->set_module_viewed($module);
 
 // Deciding if we need to render the Moodle
 // interface (with header, footer, menus,
-// blocks, etc) or the full screen one. 
+// blocks, etc) or the full screen one.
 if ($video->popupopen == false) {
 
     $PAGE->set_url('/mod/vimeo/view.php', ['id' => $video->id]);

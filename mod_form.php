@@ -37,7 +37,7 @@ class mod_vimeo_mod_form extends moodleform_mod
     /**
      * This method is responsible for
      * registering this form inputs.
-     * 
+     *
      * @return void
      */
     public function definition() {
@@ -59,34 +59,34 @@ class mod_vimeo_mod_form extends moodleform_mod
 
         $this->standard_intro_elements();
 
-        $this->_form->addElement('text', 'color',  get_string('label_color', 'mod_vimeo'), 
+        $this->_form->addElement('text', 'color',  get_string('label_color', 'mod_vimeo'),
             'maxlength="6" size="10"');
         $this->_form->setType('color', PARAM_TEXT);
         $this->_form->addHelpButton('color', 'label_color', 'mod_vimeo');
 
-        $this->_form->addElement('select', 'autoplay', get_string('label_autoplay', 'mod_vimeo'), 
+        $this->_form->addElement('select', 'autoplay', get_string('label_autoplay', 'mod_vimeo'),
             [0 => get_string('label_no', 'mod_vimeo'), 1 => get_string('label_yes', 'mod_vimeo')]);
         $this->_form->setType('autoplay', PARAM_INT);
         $this->_form->addHelpButton('autoplay', 'label_autoplay', 'mod_vimeo');
 
-        $this->_form->addElement('select', 'autoloop', get_string('label_autoloop', 'mod_vimeo'), 
+        $this->_form->addElement('select', 'autoloop', get_string('label_autoloop', 'mod_vimeo'),
             [0 => get_string('label_no', 'mod_vimeo'), 1 => get_string('label_yes', 'mod_vimeo')]);
         $this->_form->setType('autoloop', PARAM_INT);
         $this->_form->addHelpButton('autoloop', 'label_autoloop', 'mod_vimeo');
 
-        $this->_form->addElement('select', 'popupopen', get_string('label_popupopen', 'mod_vimeo'), 
+        $this->_form->addElement('select', 'popupopen', get_string('label_popupopen', 'mod_vimeo'),
             [0 => get_string('label_no', 'mod_vimeo'), 1 => get_string('label_yes', 'mod_vimeo')]);
         $this->_form->setType('popupopen', PARAM_INT);
         $this->_form->addHelpButton('popupopen', 'label_popupopen', 'mod_vimeo');
 
-        $this->_form->addElement('text', 'popupwidth', get_string('label_popupwidth', 'mod_vimeo'), 
+        $this->_form->addElement('text', 'popupwidth', get_string('label_popupwidth', 'mod_vimeo'),
             'maxlength="4" size="10"');
         $this->_form->setType('popupwidth', PARAM_INT);
         $this->_form->addHelpButton('popupwidth', 'label_popupwidth', 'mod_vimeo');
         $this->_form->disabledIf('popupwidth', 'popupopen', 'eq', 0);
         $this->_form->setDefault('popupwidth', 640);
 
-        $this->_form->addElement('text', 'popupheight', get_string('label_popupheight', 'mod_vimeo'), 
+        $this->_form->addElement('text', 'popupheight', get_string('label_popupheight', 'mod_vimeo'),
             'maxlength="4" size="10"');
         $this->_form->setType('popupheight', PARAM_INT);
         $this->_form->addHelpButton('popupheight', 'label_popupheight', 'mod_vimeo');
