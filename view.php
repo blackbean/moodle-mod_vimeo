@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package mod_vimeo
@@ -67,36 +67,21 @@ require_login($course, true, $module);
  */
 require_capability('mod/vimeo:view', $context);
 
-/**
- *
- */
 $completion = new completion_info($course);
 $completion->set_module_viewed($module);
 
-/**
- *
- */
 if ($video->popupopen == false) {
 
-    /**
-     *
-     */
     $PAGE->set_url('/mod/vimeo/view.php', ['id' => $video->id]);
     $PAGE->set_title(format_string($video->name));
     $PAGE->set_heading(format_string($course->fullname));
 
-    /**
-     *
-     */
     echo($OUTPUT->header());
     echo(vimeo_render_video($video, true, true, false));
     echo($OUTPUT->footer());
 
 } else {
 
-    /**
-     *
-     */
     echo('<!DOCTYPE html>'."\n");
     echo('<html>'."\n");
     echo('<head>'."\n");

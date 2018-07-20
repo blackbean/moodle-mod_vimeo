@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package mod_vimeo
@@ -53,19 +53,10 @@ function vimeo_get_coursemodule_info(stdclass $coursemodule) {
      */
     require_once(__DIR__.'/locallib.php');
 
-    /**
-     *
-     */
     if ($video = vimeo_fetch_video($coursemodule->instance)) {
-        /**
-         *
-         */
         $info = new cached_cm_info();
         $info->name = $video->name;
 
-        /**
-         *
-         */
         if ($video->popupopen) {
             $video->popupwidth = ($video->popupwidth > 0) ? $video->popupwidth : 640;
             $video->popupheight = ($video->popupheight > 0) ? $video->popupheight : 360;
@@ -76,29 +67,17 @@ function vimeo_get_coursemodule_info(stdclass $coursemodule) {
                              "copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false;";
         }
 
-        /**
-         *
-         */
         if ($coursemodule->showdescription) {
             $info->content = format_module_intro('vimeo', $video, $coursemodule->id, false);
         }
 
-        /**
-         *
-         */
         if ($coursemodule->completion == COMPLETION_TRACKING_AUTOMATIC) {
             $info->customdata['customcompletionrules']['completionprogress'] = $video->completionprogress;
         }
 
-        /**
-         *
-         */
         return($info);
     }
 
-    /**
-     *
-     */
     return(null);
 }
 
@@ -298,13 +277,7 @@ function vimeo_get_completion_state($course, $module, $userid, $type) {
          * completion threshold with the user's.
          */
         if ($video->completionenable == true) {
-            /**
-             *
-             */
             if ($progress = vimeo_fetch_progress($userid, $video->id)) {
-                /**
-                 *
-                 */
                 if ($progress->progress >= $video->completionprogress) {
                     return(true);
                 } else {
@@ -314,9 +287,6 @@ function vimeo_get_completion_state($course, $module, $userid, $type) {
         }
     }
 
-    /**
-     *
-     */
     return($type);
  }
 
@@ -353,6 +323,7 @@ function vimeo_user_outline($course, $user, $mod, $video) {
  * @param stdclass $video the module instance record
  */
 function vimeo_user_complete($course, $user, $mod, $video) {
+    return false;
 }
 
 /**
@@ -386,6 +357,7 @@ function vimeo_print_recent_activity($course, $viewfullnames, $timestart) {
  * @param integer $groupid check for a particular group's activity only, defaults to 0 (all groups)
  */
 function vimeo_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $moduleid, $userid = 0, $groupid = 0) {
+    return false;
 }
 
 /**
@@ -398,6 +370,7 @@ function vimeo_get_recent_mod_activity(&$activities, &$index, $timestart, $cours
  * @param boolean $viewfullnames disautoplay users' full names
  */
 function vimeo_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
+    return false;
 }
 
 /**

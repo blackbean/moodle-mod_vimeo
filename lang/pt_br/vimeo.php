@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package mod_vimeo
@@ -22,9 +22,8 @@
  */
 defined('MOODLE_INTERNAL') || exit(0);
 
-/**
- *
- */
+// Defining and registering this
+// plug-in translation strings.
 $string['pluginname'] = 'Vimeo';
 $string['pluginnameplural'] = 'Vimeo';
 $string['pluginadministration'] = 'Vimeo - Administração';
@@ -32,6 +31,7 @@ $string['modulename'] = 'Vimeo';
 $string['modulename_help'] = 'Permite a utilização de videos do Vimeo junto à pataforma como uma ferramenta de ensino.';
 $string['modulenameplural'] = 'Vimeo';
 $string['moduleadministration'] = 'Vimeo - Administração';
+$string['vimeo:addinstance'] = 'Incluir instância';
 $string['vimeo'] = 'Vimeo';
 $string['mod/vimeo'] = 'Vimeo';
 $string['mod_vimeo'] = 'Vimeo';

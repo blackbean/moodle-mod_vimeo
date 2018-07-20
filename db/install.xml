@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
     <TABLES>
-        <TABLE NAME="vimeo_videos" COMMENT="Table that stores all the videos and their parameters.">
+        <TABLE NAME="vimeo" COMMENT="Table that stores all the videos and their parameters.">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="20" UNSIGNED="true" NOTNULL="true" SEQUENCE="true" COMMENT=""/>
                 <FIELD NAME="course" TYPE="int" LENGTH="20" UNSIGNED="true" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT=""/>
@@ -24,10 +24,10 @@
                 <FIELD NAME="timemodified" TYPE="int" LENGTH="20" UNSIGNED="true" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT=""/>
             </FIELDS>
             <KEYS>
-                <KEY NAME="vimeo_videos_a" TYPE="primary" FIELDS="id" COMMENT=""/>
+                <KEY NAME="vimeo_a" TYPE="primary" FIELDS="id" COMMENT=""/>
             </KEYS>
             <INDEXES>
-                <INDEX NAME="vimeo_videos_b" UNIQUE="false" FIELDS="course,visible" COMMENT=""/>
+                <INDEX NAME="vimeo_b" UNIQUE="false" FIELDS="course,visible" COMMENT=""/>
             </INDEXES>
         </TABLE>
         <TABLE NAME="vimeo_progress" COMMENT="Table that stores all the videos progresses.">

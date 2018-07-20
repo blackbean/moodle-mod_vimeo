@@ -39,7 +39,7 @@
     right: 0px;
     bottom: 0px;
     z-index: 99;
-    background-color: #000000;
+    background-color: rgb(255,255,255);
 }
 
 .mod-vimeo-video-popup iframe {

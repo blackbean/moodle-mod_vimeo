@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package mod_vimeo
@@ -48,33 +48,18 @@ $videoid = required_param('videoid', PARAM_INT);
 $userid = required_param('userid', PARAM_INT);
 $value = required_param('value', PARAM_INT);
 
-/**
- *
- */
 if ($video = vimeo_fetch_video($videoid)) {
 
-    /**
-     *
-     */
     vimeo_save_progress($userid, $videoid, $value);
 
-    /**
-     *
-     */
     if ($video->completionenable == true and
         $video->completionprogress <= $value) {
-        /**
-         *
-         */
         $module = get_coursemodule_from_instance('vimeo', $videoid, 0, false, MUST_EXIST);
         $course = $DB->get_record('course', ['id' => $module->course], '*', MUST_EXIST);
         $completion = new completion_info($course);
         $completion->update_state($module, COMPLETION_COMPLETE);
     }
 
-    /**
-     *
-     */
     header('HTTP/1.0 200 OK');
     header('Content-Type: application/json; charset=UTF-8');
     header('Cache-Control: no-cache, no-store, must-revalidate');
@@ -87,9 +72,6 @@ if ($video = vimeo_fetch_video($videoid)) {
     exit(0);
 }
 
-/**
- *
- */
 header('HTTP/1.0 404 Not Found');
 header('Content-Type: application/json; charset=UTF-8');
 header('Cache-Control: no-cache, no-store, must-revalidate');

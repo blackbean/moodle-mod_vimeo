@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package mod_vimeo
@@ -73,7 +73,7 @@ function vimeo_fetch_video($videoid) {
                 "tb1.visible,".
                 "tb1.timecreated,".
                 "tb1.timemodified ".
-            "FROM {vimeo_videos} AS tb1 ".
+            "FROM {vimeo} AS tb1 ".
             "WHERE tb1.id=?";
 
     /**
@@ -127,9 +127,6 @@ function vimeo_save_video(stdclass $video) {
      */
     $video->id = max(0, (integer)$video->id);
 
-    /**
-     *
-     */
     if ($video->id > 0) {
         return(vimeo_update_video($video));
     } else {
@@ -156,9 +153,6 @@ function vimeo_insert_video(stdclass $video) {
      * sure they are within the required parameters.
      */
     if (vimeo_validate_video($video)) {
-        /**
-         *
-         */
         $video->timecreated = time();
         $video->timemodified = 0;
 
@@ -232,9 +226,6 @@ function vimeo_update_video(stdclass $video) {
      * sure they are within the required parameters.
      */
     if (vimeo_validate_video($video)) {
-        /**
-         *
-         */
         $video->timemodified = time();
 
         /**
@@ -314,23 +305,14 @@ function vimeo_validate_video(stdclass $video) {
     if ($video->completionenable == false) $video->completionprogress = 0;
     $video->errors = [];
 
-    /**
-     *
-     */
     if (empty($video->course)) {
         $video->errors['course'] = get_string('message_invalid_course', 'mod_vimeo');
     }
 
-    /**
-     *
-     */
     if (empty($video->name)) {
         $video->errors['name'] = get_string('message_invalid_name', 'mod_vimeo');
     }
 
-    /**
-     *
-     */
     if (empty($video->video)) {
         $video->errors['video'] = get_string('message_invalid_video', 'mod_vimeo');
     }
@@ -348,103 +330,62 @@ function vimeo_validate_video(stdclass $video) {
  * @return string
  */
 function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $popup = false) {
-    /**
-     *
-     */
     global $COURSE, $USER;
 
-    /**
-     *
-     */
     $courseid = isset($COURSE->id) ? max(0, (integer)$COURSE->id) : 0;
     $userid = isset($USER->id) ? max(0, (integer)$USER->id) : 0;
 
-    /**
-     *
-     */
     $output = '';
 
-    /**
-     *
-     */
     if ($styles == true) {
         $output .= '<link href="/mod/vimeo/style.css" rel="stylesheet" media="all"/>'."\n";
     }
 
-    /**
-     *
-     */
     if ($scripts == true) {
         $output .= '<script type="text/javascript" src="/mod/vimeo/script.js"></script>'."\n";
     }
 
-    /**
-     *
-     */
     if ($video->color <> '') {
         $output .= '<div id="mod-vimeo-'.$video->id.'-block" class="mod-vimeo-block" style="background-color:#'.$video->color.'">';
-        //$output .= '<img src="/mod/vimeo/pix/icon-white.svg" width="30" heigth="30" border="0"/>';
         $output .= '&nbsp;';
         $output .= '</div>'."\n";
     } else {
         $output .= '<div id="mod-vimeo-'.$video->id.'-block" class="mod-vimeo-block">';
-        //$output .= '<img src="/mod/vimeo/pix/icon-white.svg" width="30" heigth="30" border="0"/>';
         $output .= '&nbsp;';
         $output .= '</div>'."\n";
     }
 
-    /**
-     *
-     */
     if ($popup == true) {
         $output .= '<div id="mod-vimeo-'.$video->id.'" class="mod-vimeo-video-popup"></div>'."\n";
     } else {
         $output .= '<div id="mod-vimeo-'.$video->id.'" class="mod-vimeo-video"></div>'."\n";
     }
 
-    /**
-     *
-     */
     $output .= '<script type="text/javascript">'."\n";
     $output .= 'var options={'."\n";
 
-    /**
-     *
-     */
     if (is_numeric($video->video)) {
         $output .= ' id:'.$video->video.','."\n";
     } else {
         $output .= ' url:"'.$video->video.'",'."\n";
     }
 
-    /**
-     *
-     */
     if ($video->color <> '') {
         $output .= ' color:"'.$video->color.'",'."\n";
     }
 
-    /**
-     *
-     */
     if ($video->autoplay == true) {
         $output .= ' autoplay:true,'."\n";
     } else {
         $output .= ' autoplay:false,'."\n";
     }
 
-    /**
-     *
-     */
     if ($video->autoloop == true) {
         $output .= ' loop:true,'."\n";
     } else {
         $output .= ' loop:false,'."\n";
     }
 
-    /**
-     *
-     */
     $output .= ' title:false,'."\n";
     $output .= ' byline:false};'."\n";
     $output .= 'var vimeo_'.$video->id.'_player = new Vimeo.Player("mod-vimeo-'.$video->id.'", options);'."\n";
@@ -464,9 +405,6 @@ function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $p
     $output .= '});'."\n";
     $output .= '</script>'."\n";
 
-    /**
-     *
-     */
     return($output);
 }
 
@@ -561,7 +499,7 @@ function vimeo_count_videos($courseid) {
      * from the database.
      */
     $sql = "SELECT COUNT(tb1.id) AS total ".
-            "FROM {vimeo_videos} AS tb1 ".
+            "FROM {vimeo} AS tb1 ".
             "WHERE tb1.course=?";
 
     /**
@@ -633,7 +571,7 @@ function vimeo_fetch_videos($courseid) {
                 "tb1.visible,".
                 "tb1.timecreated,".
                 "tb1.timemodified ".
-            "FROM {vimeo_videos} AS tb1 ".
+            "FROM {vimeo} AS tb1 ".
             "WHERE tb1.course=?";
 
     /**
@@ -647,7 +585,7 @@ function vimeo_fetch_videos($courseid) {
          * attributes and making sure they
          * are within the required ranges.
          */
-        foreach($records as $record) {
+        foreach ($records as $record) {
             $result = new stdclass();
             $result->id = max(0, (integer)$record->id);
             $result->course = max(0, (integer)$record->course);
@@ -835,9 +773,6 @@ function vimeo_save_progress($userid, $videoid, $value) {
         return((boolean)$DB->insert_record_raw('vimeo_progress', $values));
     }
 
-    /**
-     *
-     */
     return(false);
 }
 
