@@ -216,9 +216,9 @@ function vimeo_refresh_events($courseid) {
     // events returning a true boolean
     // value as this function result.
     if ($courseid > 0) {
-       return(true);
+        return(true);
     } else {
-       return(true);
+        return(true);
     }
 }
 
@@ -281,7 +281,7 @@ function vimeo_user_outline($course, $user, $mod, $video) {
 }
 
 /**
- * Prints a detailed representation of what a user has 
+ * Prints a detailed representation of what a user has
  * done with a given particular instance of this module,
  * for user activity reports.
  *

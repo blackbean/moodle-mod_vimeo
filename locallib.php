@@ -263,24 +263,15 @@ function vimeo_validate_video(stdclass $video) {
     }
     $video->errors = [];
 
-    // Verifying if the supplied course
-    // id is zero, if true, registering
-    // an error message about it.
     if (empty($video->course)) {
         $video->errors['course'] = get_string('message_invalid_course', 'mod_vimeo');
     }
 
-    // Verifying if the supplied name
-    // is empty, if true, registering
-    // an error message about it.
     if (empty($video->name)) {
         $video->errors['name'] = get_string('message_invalid_name', 'mod_vimeo');
     }
 
-    // Verifying if the supplied video (ID or
-    // URL) is empty, if true, registering an
-    // error message about it.
-   if (empty($video->video)) {
+    if (empty($video->video)) {
         $video->errors['video'] = get_string('message_invalid_video', 'mod_vimeo');
     }
 
