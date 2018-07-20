@@ -201,7 +201,7 @@ function vimeo_update_video(stdclass $video) {
         // Executing the required command
         // to persist the supplied object
         // within the database.
-        if ($DB->update_record_raw('vimeo', $values)) {
+        if ($result = $DB->update_record_raw('vimeo', $values)) {
             // Because we were able to execute this operation
             // completely and successfully, returning a true
             // boolean value as this function result.
