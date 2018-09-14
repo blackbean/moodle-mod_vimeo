@@ -24,8 +24,8 @@ defined('MOODLE_INTERNAL') || die();
 
 // Defining this plug-in metadata.
 $plugin->component = 'mod_vimeo';
-$plugin->release = '1.0.0';
-$plugin->version = 2018050100;
+$plugin->release = '1.0.1';
+$plugin->version = 2018091400;
 $plugin->maturity = MATURITY_BETA;
 $plugin->requires = 2016052311;
 $plugin->dependencies = [];
