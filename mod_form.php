@@ -31,6 +31,9 @@ require_once(__DIR__.'/locallib.php');
 /**
  * This class is responsible for defining and
  * validating this plug-in add and edit forms.
+ * 
+ * @copyright 2018 by BlackBean Inc, all rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html
  */
 class mod_vimeo_mod_form extends moodleform_mod
 {

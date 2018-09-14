@@ -23,6 +23,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
+ * This function returns what
+ * this module is capable of.
+ *
  * @param string $feature
  * @return boolean
  */
@@ -46,7 +49,7 @@ function vimeo_supports($feature) {
  * extra information that may be needed when printing this
  * activity in a course listing.
  *
- * @param integer $coursemodule
+ * @param stdclass $coursemodule
  * @return cached_cm_info
  */
 function vimeo_get_coursemodule_info(stdclass $coursemodule) {
@@ -227,8 +230,8 @@ function vimeo_refresh_events($courseid) {
  * for this video based on any conditions
  * in Vimeo settings.
  *
- * @param object $course
- * @param object $module
+ * @param stdclass $course
+ * @param stdclass $module
  * @param integer $userid
  * @param boolean $type
  * @return boolean

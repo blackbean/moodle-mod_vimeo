@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
  * [vimeo_fetch_video]
  *
  * @param integer $videoid
- * @return object|null
+ * @return stdclass|null
  */
 function vimeo_fetch_video($videoid) {
     // Importing all the required global
@@ -217,6 +217,7 @@ function vimeo_update_video(stdclass $video) {
 
 /**
  * [vimeo_validate_video]
+ * 
  * @param stdclass $video
  * @return boolean
  */
@@ -265,7 +266,11 @@ function vimeo_validate_video(stdclass $video) {
 
 /**
  * [vimeo_render_video]
+ *
  * @param stdclass $video
+ * @param boolean $styles
+ * @param boolean $scripts
+ * @param boolean $popup
  * @return string
  */
 function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $popup = false) {
@@ -358,6 +363,7 @@ function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $p
 
 /**
  * [vimeo_delete_video]
+ * 
  * @param integer $videoid
  * @return boolean
  */
