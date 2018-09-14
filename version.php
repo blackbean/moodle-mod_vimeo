@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * This file contains the required routines for this activity module.
+ *
  * @package mod_vimeo
  * @author Bruno Magalhães <brunomagalhaes@blackbean.com.br>
  * @copyright 2018 by BlackBean Inc, all rights reserved.
@@ -24,8 +26,8 @@ defined('MOODLE_INTERNAL') || die();
 
 // Defining this plug-in metadata.
 $plugin->component = 'mod_vimeo';
-$plugin->release = '1.0.1';
-$plugin->version = 2018091400;
+$plugin->release = '1.0.2';
+$plugin->version = 2018091402;
 $plugin->maturity = MATURITY_BETA;
 $plugin->requires = 2016052311;
 $plugin->dependencies = [];

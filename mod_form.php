@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * This file contains the required routines for this activity module.
+ *
  * @package mod_vimeo
  * @author Bruno Magalhães <brunomagalhaes@blackbean.com.br>
  * @copyright 2018 by BlackBean Inc, all rights reserved.
@@ -29,8 +31,7 @@ require_once(__DIR__.'/../../course/moodleform_mod.php');
 require_once(__DIR__.'/locallib.php');
 
 /**
- * This class is responsible for defining and
- * validating this plug-in add and edit forms.
+ * This class is responsible for defining and validating this plug-in add and edit forms.
  *
  * @copyright 2018 by BlackBean Inc, all rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html
