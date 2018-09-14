@@ -217,7 +217,7 @@ function vimeo_update_video(stdclass $video) {
 
 /**
  * [vimeo_validate_video]
- * 
+ *
  * @param stdclass $video
  * @return boolean
  */
@@ -363,7 +363,7 @@ function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $p
 
 /**
  * [vimeo_delete_video]
- * 
+ *
  * @param integer $videoid
  * @return boolean
  */
