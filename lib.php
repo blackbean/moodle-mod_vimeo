@@ -55,6 +55,10 @@ function vimeo_supports($feature) {
  * @return cached_cm_info
  */
 function vimeo_get_coursemodule_info(stdclass $coursemodule) {
+    // Importing all the required global
+    // objects into this function scope.
+    global $CFG;
+
     // Loading all libraries, classes
     // and functions required by this
     // function execution.
@@ -67,7 +71,7 @@ function vimeo_get_coursemodule_info(stdclass $coursemodule) {
         if ($video->popupopen) {
             $video->popupwidth = ($video->popupwidth > 0) ? $video->popupwidth : 640;
             $video->popupheight = ($video->popupheight > 0) ? $video->popupheight : 360;
-            $info->onclick = "window.open('/mod/vimeo/view.php?id=".$coursemodule->id."&popup=1','_blank',".
+            $info->onclick = "window.open('".$CFG->wwwroot."/mod/vimeo/view.php?id=".$coursemodule->id."&popup=1','_blank',".
                              "'top=' + (window.top.outerHeight / 2 + window.top.screenY - ( ".$video->popupheight." / 2)) + ',".
                              "left=' + (window.top.outerWidth / 2 + window.top.screenX - ( ".$video->popupwidth." / 2)) + ',".
                              "width=".$video->popupwidth.",height=".$video->popupheight.",toolbar=no,location=no,menubar=no,".

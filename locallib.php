@@ -278,7 +278,7 @@ function vimeo_validate_video(stdclass $video) {
 function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $popup = false) {
     // Importing all the required global
     // objects into this function scope.
-    global $COURSE, $USER;
+    global $COURSE, $USER, $CFG;
 
     // Normalizing the supplied arguments and making
     // sure they are within the required parameters.
@@ -290,11 +290,11 @@ function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $p
     $output = '';
 
     if ($styles == true) {
-        $output .= '<link href="/mod/vimeo/style.css" rel="stylesheet" media="all"/>'."\n";
+        $output .= '<link href="'.$CFG->wwwroot.'/mod/vimeo/style.css" rel="stylesheet" media="all"/>'."\n";
     }
 
     if ($scripts == true) {
-        $output .= '<script type="text/javascript" src="/mod/vimeo/script.js"></script>'."\n";
+        $output .= '<script type="text/javascript" src="'.$CFG->wwwroot.'/mod/vimeo/script.js"></script>'."\n";
     }
 
     if ($video->color <> '') {
@@ -351,7 +351,7 @@ function vimeo_render_video(stdclass $video, $styles = true, $scripts = true, $p
     $output .= ' } else {'."\n";
     $output .= '  request = new ActiveXObject("Microsoft.XMLHTTP");'."\n";
     $output .= ' }'."\n";
-    $output .= ' request.open("GET","/mod/vimeo/ping.php?courseid='.$courseid;
+    $output .= ' request.open("GET","'.$CFG->wwwroot.'/mod/vimeo/ping.php?courseid='.$courseid;
     $output .= '&videoid='.$video->id.'&userid='.$userid.'&value="+vimeo_'.$video->id.'_partial, true);'."\n";
     $output .= ' request.send();'."\n";
     $output .= '}'."\n";
